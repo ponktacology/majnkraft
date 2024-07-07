@@ -17,7 +17,6 @@ class StaticShader(shaderFile: Path, fragmentFile: Path) : Shader(shaderFile, fr
     override fun getUniforms() {
         transformationMatrixLocation = getUniformLocation("transformationMatrix")
         projectionMatrixLocation = getUniformLocation("projectionMatrix")
-        viewMatrixLocation = getUniformLocation("viewMatrix")
     }
 
     fun setTransformationMatrix(transformationMatrix: Matrix4f) {
@@ -28,8 +27,6 @@ class StaticShader(shaderFile: Path, fragmentFile: Path) : Shader(shaderFile, fr
         super.setUniform(projectionMatrixLocation, projectionMatrix)
     }
 
-    fun setViewMatrix(viewMatrix: Matrix4f) {
-        super.setUniform(viewMatrixLocation, viewMatrix)
-    }
+
 
 }

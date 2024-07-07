@@ -32,10 +32,11 @@ object Majnkraft {
         fpsTime += now - lastTime
         lastTime = now
 
-        camera.tick(delta)
         world.tick()
 
         Renderer.render(delta)
+
+        camera.input()
 
         frames++
         if (fpsTime >= 1000000000) {

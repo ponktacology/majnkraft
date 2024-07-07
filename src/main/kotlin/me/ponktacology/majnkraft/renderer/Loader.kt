@@ -1,6 +1,7 @@
 package me.ponktacology.majnkraft.renderer
 
 import de.matthiasmann.twl.utils.PNGDecoder
+import me.ponktacology.majnkraft.renderer.model.Mesh
 import org.lwjgl.opengl.GL30.*
 import java.nio.ByteBuffer
 import java.nio.file.Path

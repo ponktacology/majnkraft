@@ -5,37 +5,73 @@ import org.lwjgl.glfw.GLFW.*
 import kotlin.math.cos
 import kotlin.math.sin
 
-const val SPEED = 5f
-const val SENSITIVITY = 1f
 
-data class Camera(val position: Vector3f = Vector3f(0f, 0f, 0f), val rotation: Vector3f = Vector3f(0f, 0f, 0f)) {
+data class Camera(val position: Vector3f = Vector3f(0f, 20f, 0f), val rotation: Vector3f = Vector3f(0f, 0f, 0f)) {
 
-    private var moveAt = 0f
+    companion object {
+        private const val MOVEMENT_SPEED = 0.01f
+        private const val FLY_SPEED = 0.03f
+    }
 
-    fun tick(timeDelta: Float) {
+    private val mouseRot = Vector3f().zero()
+    private val input = Vector3f().zero()
+
+    fun input() {
+        input.zero()
+
         if (Renderer.isKeyPressed(GLFW_KEY_W)) {
-            moveAt = timeDelta * -SPEED
+            input.z = -1f;
         } else if (Renderer.isKeyPressed(GLFW_KEY_S)) {
-            moveAt = timeDelta * SPEED
-        } else {
-            moveAt = 0.0f;
+            input.z = 1f;
+        }
+        if (Renderer.isKeyPressed(GLFW_KEY_A)) {
+            input.x = -1f;
+        } else if (Renderer.isKeyPressed(GLFW_KEY_D)) {
+            input.x = 1f;
+        }
+        if (Renderer.isKeyPressed(GLFW_KEY_SPACE)) {
+            input.y = -1f;
+        } else if (Renderer.isKeyPressed(GLFW_KEY_LEFT_SHIFT)) {
+            input.y = 1f;
         }
 
-        rotation.add(
-            Vector3f(
-                timeDelta * Mouse.deltaY.toFloat() * -SENSITIVITY,
-                timeDelta * Mouse.deltaX.toFloat() * SENSITIVITY,
-                0f
-            )
+        movePosition(
+            input.x * MOVEMENT_SPEED,
+            input.y * FLY_SPEED,
+            input.z * MOVEMENT_SPEED
         )
 
-        val deltaX = -(moveAt * sin(Math.toRadians(rotation.y.toDouble())).toFloat())
-        val deltaY = moveAt * sin(Math.toRadians(rotation.y.toDouble())).toFloat()
-        val deltaZ = moveAt * cos(Math.toRadians(rotation.y.toDouble())).toFloat()
+        // Update camera based on mouse
+        if (Mouse.deltaX > 0 || Mouse.deltaY > 0) {
+            mouseRot.zero()
 
+            if (Mouse.deltaY != 0.0) {
+                mouseRot.x = Mouse.deltaY.toFloat() * MOVEMENT_SPEED
+            }
 
-        position.add(Vector3f(deltaX, deltaY, deltaZ))
+            if (Mouse.deltaX != 0.0) {
+                mouseRot.y = Mouse.deltaX.toFloat() * MOVEMENT_SPEED
+            }
 
-        println(position)
+            moveRotation(mouseRot.x, mouseRot.y, mouseRot.z)
+        }
+    }
+
+    private fun moveRotation(offsetX: Float, offsetY: Float, offsetZ: Float) {
+        rotation.x += offsetX
+        rotation.y += offsetY
+        rotation.z += offsetZ
+    }
+
+    private fun movePosition(offsetX: Float, offsetY: Float, offsetZ: Float) {
+        if (offsetZ != 0f) {
+            position.x += sin(Math.toRadians(rotation.y.toDouble())).toFloat() * -1.0f * offsetZ
+            position.z += cos(Math.toRadians(rotation.y.toDouble())).toFloat() * offsetZ
+        }
+        if (offsetX != 0f) {
+            position.x += sin(Math.toRadians((rotation.y - 90).toDouble())).toFloat() * -1.0f * offsetX
+            position.z += cos(Math.toRadians((rotation.y - 90).toDouble())).toFloat() * offsetX
+        }
+        position.y += offsetY
     }
 }

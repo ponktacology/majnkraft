@@ -4,30 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdfa7db9-a482-46a0-af73-fa914e2f64ed" name="Changes" comment="basic rendering with texture">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/Cube.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/Camera.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/Entity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/Model.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/Mouse.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/Texture.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/Translation.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/world/Chunk.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/world/World.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/textures/dirt.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="bdfa7db9-a482-46a0-af73-fa914e2f64ed" name="Changes" comment="camera, simple chunk generation etc.">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/Options.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/Majnkraft.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/Majnkraft.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/Camera.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/Camera.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/EntityRenderer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/EntityRenderer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/Mesh.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/Mesh.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/MeshLoader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/Loader.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/Renderer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/Renderer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/shader/Shader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/shader/Shader.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/shader/StaticShader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/shader/StaticShader.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/test_shader.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +139,8 @@
       <workItem from="1720301942537" duration="3747000" />
       <workItem from="1720350111863" duration="872000" />
       <workItem from="1720351831641" duration="5722000" />
-      <workItem from="1720357915217" duration="17157000" />
+      <workItem from="1720357915217" duration="17763000" />
+      <workItem from="1720380124694" duration="2670000" />
     </task>
     <task id="LOCAL-00001" summary="quad">
       <option name="closed" value="true" />
@@ -164,7 +150,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720306180270</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="camera, simple chunk generation etc.">
+      <option name="closed" value="true" />
+      <created>1720375772133</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1720375772133</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,6 +178,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="quad" />
     <MESSAGE value="basic rendering with texture" />
-    <option name="LAST_COMMIT_MESSAGE" value="basic rendering with texture" />
+    <MESSAGE value="camera, simple chunk generation etc." />
+    <option name="LAST_COMMIT_MESSAGE" value="camera, simple chunk generation etc." />
   </component>
 </project>

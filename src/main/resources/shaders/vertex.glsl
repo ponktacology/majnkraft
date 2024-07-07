@@ -5,11 +5,10 @@ in vec2 texturePos;
 
 uniform mat4 transformationMatrix;
 uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
 
 out vec2 pass_texturePos;
 
 void main() {
-    gl_Position = projectionMatrix * viewMatrix * transformationMatrix * vec4(position.x + 0.5, position.y + 0.5, position.z, 1.0);
+    gl_Position = projectionMatrix * transformationMatrix * vec4(position.x + 0.5, position.y + 0.5, position.z, 1.0);
     pass_texturePos = texturePos;
 }

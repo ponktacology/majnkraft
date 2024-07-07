@@ -2,6 +2,7 @@ package me.ponktacology.majnkraft.renderer
 
 import me.ponktacology.majnkraft.Cube
 import me.ponktacology.majnkraft.Majnkraft
+import me.ponktacology.majnkraft.renderer.model.Model
 import me.ponktacology.majnkraft.renderer.shader.Shader
 import me.ponktacology.majnkraft.renderer.shader.StaticShader
 import org.joml.Vector3f
@@ -78,7 +79,6 @@ object Renderer {
         glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
         Mouse.reset()
         shaders.forEach { it.start() }
-        testShader.setViewMatrix(Translation.createViewMatrix(Majnkraft.camera))
         entities.forEach { EntityRenderer.render(it, testShader) }
         shaders.forEach { it.stop() }
         glfwSwapBuffers(window)
@@ -123,7 +123,6 @@ object Renderer {
             if (window != this.window) return@create
             Mouse.update(Mouse.currentX, Mouse.currentY, x, y)
         }
-
         glfwSetCursorPosCallback(window, mouseCallback)
 
         stackPush().use { stack ->
@@ -154,4 +153,6 @@ object Renderer {
 
         glEnable(GL_DEPTH_TEST)
     }
+
+
 }

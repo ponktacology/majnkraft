@@ -1,5 +1,6 @@
 package me.ponktacology.majnkraft.renderer
 
+import me.ponktacology.majnkraft.renderer.model.Model
 import org.joml.Vector3f
 
 data class Entity(
