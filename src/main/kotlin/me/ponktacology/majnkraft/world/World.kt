@@ -1,16 +1,17 @@
 package me.ponktacology.majnkraft.world
 
-import me.ponktacology.majnkraft.Majnkraft
+import me.ponktacology.majnkraft.renderer.GlobalRenderer
+import org.joml.Vector3f
 import java.util.concurrent.ConcurrentHashMap
 
-const val VIEW_DISTANCE = 1
+const val VIEW_DISTANCE = 100
 
-class World {
+data class World(val renderer: GlobalRenderer) {
 
-    val loadedChunks = ConcurrentHashMap<Long, Chunk>()
+    private val loadedChunks = ConcurrentHashMap<Long, Chunk>()
 
     fun tick() {
-        val camera = Majnkraft.camera
+        val camera = renderer.camera()
 
         val cameraChunkX = camera.position.x.toInt() shr 4
         val cameraChunkZ = camera.position.z.toInt() shr 4
@@ -34,12 +35,14 @@ class World {
             }
         }
 
+
         loadedChunks.entries.forEach {
             if (!currentlyLoadedChunks.contains(it.key)) {
-                println("UNLOADING $it")
                 unLoadChunk(it.value)
             }
         }
+
+        println("LOADED $loadedChunks")
     }
 
     private fun loadChunk(chunk: Chunk) {
@@ -48,16 +51,34 @@ class World {
         for (x in 0..15) {
             for (z in 0..15) {
                 for (y in 0..256) {
-                    if (y == 1) {
-                        chunk.blocks[x][y][z] = 1
+                    if (y < 100) {
+                        val block = convertToRenderable(x + (chunk.x shl 4), y, z + (chunk.z shl 4))
+                        chunk.blocks[x][y][z] = block
+                        //   renderer.addRenderable(block)
                     }
                 }
             }
         }
     }
 
-    fun unLoadChunk(chunk: Chunk) {
+    private fun unLoadChunk(chunk: Chunk) {
         loadedChunks.remove(chunk.chunkKey)
+
+        for (x in 0..15) {
+            for (z in 0..15) {
+                for (y in 0..256) {
+                    if (y == 1) {
+                        chunk.blocks[x][y][z]?.let {
+                            //         renderer.removeRenderable(it)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun convertToRenderable(x: Int, y: Int, z: Int): Block {
+        return Block(position = Vector3f(x.toFloat(), y.toFloat(), z.toFloat()))
     }
 
 }

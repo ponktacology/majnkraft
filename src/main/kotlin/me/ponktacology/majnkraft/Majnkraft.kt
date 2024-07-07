@@ -1,48 +1,39 @@
 package me.ponktacology.majnkraft
 
 import me.ponktacology.majnkraft.renderer.Camera
-import me.ponktacology.majnkraft.renderer.Renderer
+import me.ponktacology.majnkraft.renderer.EntityRenderer
+import me.ponktacology.majnkraft.renderer.GlobalRenderer
+import me.ponktacology.majnkraft.renderer.model.Model
+import me.ponktacology.majnkraft.renderer.model.ModelRegistry
+import me.ponktacology.majnkraft.renderer.model.mesh.MeshLoader
+import me.ponktacology.majnkraft.renderer.model.texture.TextureLoader
 import me.ponktacology.majnkraft.world.World
+import java.lang.Thread.sleep
+import kotlin.concurrent.thread
+import kotlin.io.path.Path
 
 object Majnkraft {
 
-    val camera = Camera()
-    var lastTime = System.nanoTime()
-    var frames = 0
-    var fpsTime = 0L
-    val world = World()
 
+    private val renderer = GlobalRenderer(EntityRenderer(Camera()))
+    private val world = World(renderer)
+    private var fpsTime: Long = 0
+    private var renderTickTime = 0L
     fun run() {
-        Renderer.start()
+        renderer.start()
 
-        while (!Renderer.hasStopped()) {
-            tick()
-        }
+        val texture = TextureLoader.loadTexture(java.nio.file.Path.of("textures/dirt.png"))
+        val mesh = MeshLoader.createMesh(Cube.vertices, Cube.indices, Cube.uv)
+        ModelRegistry.registerModel("cube", Model(mesh, texture))
 
-        stop()
-    }
-
-    private fun stop() {
-        Renderer.destroy()
-    }
-
-    private fun tick() {
-        val now = System.nanoTime()
-        val delta = (now - lastTime) / 1_000_000_000.0f
-        fpsTime += now - lastTime
-        lastTime = now
-
-        world.tick()
-
-        Renderer.render(delta)
-
-        camera.input()
-
-        frames++
-        if (fpsTime >= 1000000000) {
-            System.out.println("FPS: " + frames);
-            frames = 0;
-            fpsTime = 0;
+        while (!renderer.hasStopped()) {
+            val now = System.nanoTime()
+            val delta = (now - renderTickTime) / 1_000_000_000.0f
+            fpsTime += now - renderTickTime
+            renderTickTime = now
+            world.tick()
+            renderer.render(delta)
         }
     }
+
 }

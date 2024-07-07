@@ -1,23 +1,22 @@
 package me.ponktacology.majnkraft.renderer
 
-import me.ponktacology.majnkraft.Majnkraft
-import me.ponktacology.majnkraft.renderer.shader.StaticShader
+import me.ponktacology.majnkraft.renderer.shader.ShaderLoader
 import org.joml.Matrix4f
 import org.joml.Vector3f
 import org.lwjgl.opengl.GL30.*
 
 
-object EntityRenderer {
+class EntityRenderer(val camera: Camera) {
 
-
-    fun render(entity: Entity, shader: StaticShader) {
-        val model = entity.model
+    fun render(renderable: Renderable) {
+        val model = renderable.model
         glBindVertexArray(model.mesh.id)
         glEnableVertexAttribArray(0)
         glEnableVertexAttribArray(1)
 
-        val viewMatrix = getViewMatrix(Majnkraft.camera)
-        val transformationMatrix = getModelViewMatrix(entity, viewMatrix)
+        val shader = ShaderLoader.BASIC_SHADER
+        val viewMatrix = getViewMatrix(camera)
+        val transformationMatrix = getModelViewMatrix(renderable, viewMatrix)
         shader.setTransformationMatrix(transformationMatrix)
 
         glActiveTexture(GL_TEXTURE0)
@@ -28,9 +27,10 @@ object EntityRenderer {
         glBindVertexArray(0)
     }
 
-    fun getModelViewMatrix(gameItem: Entity, viewMatrix: Matrix4f): Matrix4f {
+    fun getModelViewMatrix(gameItem: Renderable, viewMatrix: Matrix4f): Matrix4f {
         val rotation = gameItem.rotation
-        val modelViewMatrix = Matrix4f().translate(gameItem.position)
+        val modelViewMatrix = Matrix4f()
+            .translate(gameItem.position)
             .rotateX(Math.toRadians(-rotation.x.toDouble()).toFloat())
             .rotateY(Math.toRadians(-rotation.y.toDouble()).toFloat())
             .rotateZ(Math.toRadians(-rotation.z.toDouble()).toFloat())

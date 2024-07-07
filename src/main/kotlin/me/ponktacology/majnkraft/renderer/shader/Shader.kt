@@ -9,30 +9,31 @@ import java.nio.file.Path
 
 abstract class Shader(shaderFile: Path, fragmentFile: Path) {
 
-    private val programId: Int
-    private val shaderId: Int
-    private val fragmentId: Int
+    private val programId = glCreateProgram()
+    private val shaderId = loadShader(shaderFile, GL_VERTEX_SHADER)
+    private val fragmentId = loadShader(fragmentFile, GL_FRAGMENT_SHADER)
     private val buffer = BufferUtils.createFloatBuffer(16)
+    private val uniforms = HashMap<String, Int>()
 
     init {
-        programId = glCreateProgram()
-        shaderId = loadShader(shaderFile, GL_VERTEX_SHADER)
-        fragmentId = loadShader(fragmentFile, GL_FRAGMENT_SHADER)
         glAttachShader(programId, shaderId)
         glAttachShader(programId, fragmentId)
         bindAttributes()
         glLinkProgram(programId)
         glValidateProgram(programId)
-        getUniforms()
+        bindUniforms()
     }
 
     abstract fun bindAttributes()
 
-    abstract fun getUniforms();
+    abstract fun bindUniforms();
 
-    fun getUniformLocation(name: String) = glGetUniformLocation(programId, name)
+    fun bindUniform(name: String) {
+        uniforms[name] = glGetUniformLocation(programId, name)
+    }
 
-    fun setUniform(location: Int, matrix4f: Matrix4f) {
+    fun setUniform(name: String, matrix4f: Matrix4f) {
+        val location = uniforms[name] ?: error("invalid uniform")
         glUniformMatrix4fv(location, false, matrix4f.get(buffer))
     }
 
@@ -48,15 +49,6 @@ abstract class Shader(shaderFile: Path, fragmentFile: Path) {
         glUseProgram(0)
     }
 
-    fun cleanup() {
-        stop()
-        glDetachShader(programId, shaderId)
-        glDetachShader(programId, fragmentId)
-        glDeleteShader(shaderId)
-        glDeleteShader(fragmentId)
-        glDeleteProgram(programId)
-    }
-
     private fun loadShader(path: Path, type: Int): Int {
         BufferedInputStream(this.javaClass.classLoader.getResourceAsStream(path.toString())).use {
             val code = String(it.readAllBytes())
@@ -69,5 +61,14 @@ abstract class Shader(shaderFile: Path, fragmentFile: Path) {
             }
             return shaderId
         }
+    }
+
+    fun cleanup() {
+        stop()
+        glDetachShader(programId, shaderId)
+        glDetachShader(programId, fragmentId)
+        glDeleteShader(shaderId)
+        glDeleteShader(fragmentId)
+        glDeleteProgram(programId)
     }
 }
