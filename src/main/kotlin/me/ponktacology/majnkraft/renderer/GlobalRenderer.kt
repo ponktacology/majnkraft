@@ -52,7 +52,6 @@ class GlobalRenderer(private val entityRenderer: EntityRenderer) {
 
         ShaderLoader.BASIC_SHADER.start()
 
-        println(renderables.size)
         renderables.forEach { entityRenderer.render(it) }
 
         ShaderLoader.BASIC_SHADER.stop()
@@ -91,13 +90,15 @@ class GlobalRenderer(private val entityRenderer: EntityRenderer) {
             window = Window(windowId, width.get(), height.get())
             input = Input(window)
             glfwMakeContextCurrent(windowId)
-            glfwSwapInterval(1)
+            glfwSwapInterval(0)
             glfwShowWindow(windowId)
             glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         }
 
         GL.createCapabilities()
         glEnable(GL_DEPTH_TEST)
+        glEnable(GL_CULL_FACE)
+        glCullFace(GL_FRONT)
     }
 
     fun destroy() {

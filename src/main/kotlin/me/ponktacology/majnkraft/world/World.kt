@@ -2,13 +2,16 @@ package me.ponktacology.majnkraft.world
 
 import me.ponktacology.majnkraft.renderer.GlobalRenderer
 import org.joml.Vector3f
+import java.util.LinkedList
 import java.util.concurrent.ConcurrentHashMap
 
-const val VIEW_DISTANCE = 100
+const val VIEW_DISTANCE = 3
 
 data class World(val renderer: GlobalRenderer) {
 
     private val loadedChunks = ConcurrentHashMap<Long, Chunk>()
+    private val toBeRenderedChunks = LinkedList<Chunk>()
+    private val toBeDestroyedChunks = LinkedList<Chunk>()
 
     fun tick() {
         val camera = renderer.camera()
@@ -17,6 +20,16 @@ data class World(val renderer: GlobalRenderer) {
         val cameraChunkZ = camera.position.z.toInt() shr 4
 
         populateChunks(cameraChunkX, cameraChunkZ)
+
+        if (toBeRenderedChunks.isNotEmpty()) {
+            val top = toBeRenderedChunks.pop()
+            renderChunk(top)
+        }
+
+        if (toBeDestroyedChunks.isNotEmpty()) {
+            val top = toBeDestroyedChunks.pop()
+            destroyChunk(top)
+        }
     }
 
     private fun populateChunks(cameraChunkX: Int, cameraChunkZ: Int) {
@@ -42,19 +55,22 @@ data class World(val renderer: GlobalRenderer) {
             }
         }
 
-        println("LOADED $loadedChunks")
     }
 
     private fun loadChunk(chunk: Chunk) {
         loadedChunks[chunk.chunkKey] = chunk
+        toBeDestroyedChunks.remove(chunk)
+        toBeRenderedChunks.push(chunk)
+    }
 
+    fun renderChunk(chunk: Chunk) {
         for (x in 0..15) {
             for (z in 0..15) {
                 for (y in 0..256) {
-                    if (y < 100) {
+                    if (y < 10) {
                         val block = convertToRenderable(x + (chunk.x shl 4), y, z + (chunk.z shl 4))
                         chunk.blocks[x][y][z] = block
-                        //   renderer.addRenderable(block)
+                        renderer.addRenderable(block)
                     }
                 }
             }
@@ -63,13 +79,18 @@ data class World(val renderer: GlobalRenderer) {
 
     private fun unLoadChunk(chunk: Chunk) {
         loadedChunks.remove(chunk.chunkKey)
+        if (!toBeRenderedChunks.remove(chunk)) {
+            toBeDestroyedChunks.push(chunk)
+        }
+    }
 
+    fun destroyChunk(chunk: Chunk) {
         for (x in 0..15) {
             for (z in 0..15) {
                 for (y in 0..256) {
-                    if (y == 1) {
+                    if (y < 10) {
                         chunk.blocks[x][y][z]?.let {
-                            //         renderer.removeRenderable(it)
+                            renderer.removeRenderable(it)
                         }
                     }
                 }

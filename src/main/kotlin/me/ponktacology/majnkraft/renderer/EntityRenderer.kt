@@ -1,5 +1,6 @@
 package me.ponktacology.majnkraft.renderer
 
+import me.ponktacology.majnkraft.Cube
 import me.ponktacology.majnkraft.renderer.shader.ShaderLoader
 import org.joml.Matrix4f
 import org.joml.Vector3f
@@ -21,7 +22,8 @@ class EntityRenderer(val camera: Camera) {
 
         glActiveTexture(GL_TEXTURE0)
         glBindTexture(GL_TEXTURE_2D, model.texture.id)
-        glDrawElements(GL_TRIANGLES, model.mesh.indices, GL_UNSIGNED_INT, 0)
+        glDrawElements(GL_TRIANGLES, Cube.vertices.size / 3, GL_UNSIGNED_INT, 0)
+
         glDisableVertexAttribArray(0)
         glDisableVertexAttribArray(1)
         glBindVertexArray(0)

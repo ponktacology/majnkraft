@@ -26,12 +26,20 @@ object Majnkraft {
         val mesh = MeshLoader.createMesh(Cube.vertices, Cube.indices, Cube.uv)
         ModelRegistry.registerModel("cube", Model(mesh, texture))
 
+        var lastTick = System.nanoTime()
+
         while (!renderer.hasStopped()) {
             val now = System.nanoTime()
             val delta = (now - renderTickTime) / 1_000_000_000.0f
-            fpsTime += now - renderTickTime
+
+            println("${1 / delta} fps")
             renderTickTime = now
-            world.tick()
+
+            if (now - lastTick > 50_000_000.0f) {
+                lastTick = now
+                world.tick()
+            }
+
             renderer.render(delta)
         }
     }
