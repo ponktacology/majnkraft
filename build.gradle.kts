@@ -7,7 +7,7 @@ group = "me.ponktacology"
 version = "1.0-SNAPSHOT"
 
 application {
-    mainClass = "me.ponktacology.majnkraft.Main"
+    mainClass = "recode.Main"
 }
 
 val lwjglVersion = "3.3.3"

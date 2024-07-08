@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bdfa7db9-a482-46a0-af73-fa914e2f64ed" name="Changes" comment="refactor, better camera movement">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/recode/Main.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/recode/Shader.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/recode/Shaders.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/recode/Texture.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/Majnkraft.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/Majnkraft.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/EntityRenderer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/EntityRenderer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/GlobalRenderer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/renderer/GlobalRenderer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/world/World.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/me/ponktacology/majnkraft/world/World.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertex.glsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,6 +150,7 @@
       <workItem from="1720380124694" duration="7964000" />
       <workItem from="1720388252709" duration="1530000" />
       <workItem from="1720393900146" duration="1050000" />
+      <workItem from="1720463899523" duration="8476000" />
     </task>
     <task id="LOCAL-00001" summary="quad">
       <option name="closed" value="true" />
