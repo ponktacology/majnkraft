@@ -5,7 +5,7 @@ import org.joml.Vector2i
 data class World(private val camera: Camera) {
 
     companion object {
-        const val VIEW_DISTANCE = 16
+        const val VIEW_DISTANCE = 8
     }
 
     private val chunks = HashSet<Chunk>()
