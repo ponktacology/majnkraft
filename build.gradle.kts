@@ -7,7 +7,7 @@ group = "me.ponktacology"
 version = "1.0-SNAPSHOT"
 
 application {
-    mainClass = "recode.Main"
+    mainClass = "me.ponktacology.majnkraft.Main"
 }
 
 val lwjglVersion = "3.3.3"
@@ -23,6 +23,7 @@ dependencies {
     implementation("org.lwjgl", "lwjgl-glfw")
     implementation("org.lwjgl", "lwjgl-opengl")
     implementation("org.lwjgl", "lwjgl-stb")
+    implementation("org.lwjgl", "lwjgl-freetype")
     implementation("org.l33tlabs.twl:pngdecoder:1.0")
     implementation("org.joml:joml:1.10.6")
 
@@ -30,6 +31,7 @@ dependencies {
     runtimeOnly("org.lwjgl", "lwjgl-glfw", classifier = lwjglNatives)
     runtimeOnly("org.lwjgl", "lwjgl-opengl", classifier = lwjglNatives)
     runtimeOnly("org.lwjgl", "lwjgl-stb", classifier = lwjglNatives)
+    runtimeOnly("org.lwjgl", "lwjgl-freetype", classifier = lwjglNatives)
 
     testImplementation(kotlin("test"))
 }

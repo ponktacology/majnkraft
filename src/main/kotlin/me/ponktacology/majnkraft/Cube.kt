@@ -1,79 +1,11 @@
 package me.ponktacology.majnkraft
 
-object Cube {
+import org.joml.Vector3f
 
-    val vertices = floatArrayOf(
-        -0.5f, 0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f, -0.5f,
-        0.5f, 0.5f, -0.5f,
-
-        -0.5f, 0.5f, 0.5f,
-        -0.5f, -0.5f, 0.5f,
-        0.5f, -0.5f, 0.5f,
-        0.5f, 0.5f, 0.5f,
-
-        0.5f, 0.5f, -0.5f,
-        0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f, 0.5f,
-        0.5f, 0.5f, 0.5f,
-
-        -0.5f, 0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f, 0.5f,
-        -0.5f, 0.5f, 0.5f,
-
-        -0.5f, 0.5f, 0.5f,
-        -0.5f, 0.5f, -0.5f,
-        0.5f, 0.5f, -0.5f,
-        0.5f, 0.5f, 0.5f,
-
-        -0.5f, -0.5f, 0.5f,
-        -0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f, 0.5f
-    )
-
-    val uv = intArrayOf(
-        0, 0,
-        0, 1,
-        1, 1,
-        1, 0,
-        0, 0,
-        0, 1,
-        1, 1,
-        1, 0,
-        0, 0,
-        0, 1,
-        1, 1,
-        1, 0,
-        0, 0,
-        0, 1,
-        1, 1,
-        1, 0,
-        0, 0,
-        0, 1,
-        1, 1,
-        1, 0,
-        0, 0,
-        0, 1,
-        1, 1,
-        1, 0
-    ).map { it.toFloat() }
-        .toFloatArray()
-
-    val indices = intArrayOf(
-        0, 1, 3,
-        3, 1, 2,
-        4, 5, 7,
-        7, 5, 6,
-        8, 9, 11,
-        11, 9, 10,
-        12, 13, 15,
-        15, 13, 14,
-        16, 17, 19,
-        19, 17, 18,
-        20, 21, 23,
-        23, 21, 22
-    )
-}
+data class Cube(
+    override val position: Vector3f,
+    override val mesh: Mesh,
+    override val texture: Texture,
+    override val rotation: Vector3f = Vector3f(),
+    override val scale: Float = 1f
+) : Entity

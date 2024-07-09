@@ -1,5 +1,7 @@
-package recode
+package me.ponktacology.majnkraft
 
+import org.joml.Matrix4f
+import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL20.*
 import java.io.BufferedInputStream
 import java.nio.file.Path
@@ -7,6 +9,7 @@ import java.nio.file.Path
 class Shader(vertexPath: Path, fragmentPath: Path) {
 
     private val programId: Int = glCreateProgram()
+    private val floatBuffer = BufferUtils.createFloatBuffer(16)
 
     init {
         val vertex = loadShader(vertexPath, GL_VERTEX_SHADER)
@@ -24,9 +27,11 @@ class Shader(vertexPath: Path, fragmentPath: Path) {
         glDeleteShader(fragment)
     }
 
-    fun use() {
+    fun use(action: () -> Unit) {
         glUseProgram(programId)
+        action()
     }
+
 
     private fun loadShader(path: Path, type: Int): Int {
         BufferedInputStream(this.javaClass.classLoader.getResourceAsStream(path.toString())).use {
@@ -34,6 +39,10 @@ class Shader(vertexPath: Path, fragmentPath: Path) {
 
             return createShader(code, type)
         }
+    }
+
+    fun setUniform(name: String, mat4: Matrix4f) {
+        glUniformMatrix4fv(glGetUniformLocation(programId, name), false, mat4.get(floatBuffer))
     }
 
     private fun createShader(code: String, type: Int): Int {
