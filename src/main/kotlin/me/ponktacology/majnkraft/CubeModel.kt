@@ -4,114 +4,124 @@ import java.nio.file.Path
 
 object CubeModel {
 
-    val model by lazy {
-        ModelMaker.createModel(vertices, textures)
-    }
 
     val texture by lazy {
         Texture(Path.of("textures/dirt.png"))
     }
 
 
-
-    val vertices = floatArrayOf(
-
-        //LEFT
-        0.5f, 0.5f, -0.5f,
-        0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f, 0.5f,
-        0.5f, -0.5f, 0.5f,
-        0.5f, 0.5f, 0.5f,
-        0.5f, 0.5f, -0.5f,
-
-        //RIGHT
-        -0.5f, 0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f, 0.5f,
-        -0.5f, -0.5f, 0.5f,
-        -0.5f, 0.5f, 0.5f,
-        -0.5f, 0.5f, -0.5f,
-
-        //TOP
-        -0.5f, 0.5f, 0.5f,
-        -0.5f, 0.5f, -0.5f,
-        0.5f, 0.5f, -0.5f,
-        0.5f, 0.5f, -0.5f,
-        0.5f, 0.5f, 0.5f,
-        -0.5f, 0.5f, 0.5f,
-
-
-        //
-        -0.5f, -0.5f, 0.5f,
-        -0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f, 0.5f,
-        -0.5f, -0.5f, 0.5f,
-
-        -0.5f, 0.5f, 0.5f,
-        -0.5f, -0.5f, 0.5f,
-        0.5f, -0.5f, 0.5f,
-        0.5f, -0.5f, 0.5f,
-        0.5f, 0.5f, 0.5f,
-        -0.5f, 0.5f, 0.5f,
-
-        -0.5f, 0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f, -0.5f,
-        0.5f, 0.5f, -0.5f,
-        -0.5f, 0.5f, -0.5f
+    val vertices = mapOf(
+        CubeFace.LEFT to floatArrayOf(
+            0.5f, 0.5f, -0.5f,
+            0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f, 0.5f,
+            0.5f, -0.5f, 0.5f,
+            0.5f, 0.5f, 0.5f,
+            0.5f, 0.5f, -0.5f
+        ),
+        CubeFace.RIGHT to floatArrayOf(
+            -0.5f, 0.5f, -0.5f,
+            -0.5f, -0.5f, -0.5f,
+            -0.5f, -0.5f, 0.5f,
+            -0.5f, -0.5f, 0.5f,
+            -0.5f, 0.5f, 0.5f,
+            -0.5f, 0.5f, -0.5f,
+        ),
+        CubeFace.TOP to floatArrayOf(
+            -0.5f, 0.5f, 0.5f,
+            -0.5f, 0.5f, -0.5f,
+            0.5f, 0.5f, -0.5f,
+            0.5f, 0.5f, -0.5f,
+            0.5f, 0.5f, 0.5f,
+            -0.5f, 0.5f, 0.5f,
+        ),
+        CubeFace.BOTTOM to floatArrayOf(
+            -0.5f, -0.5f, 0.5f,
+            -0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f, 0.5f,
+            -0.5f, -0.5f, 0.5f,
+        ),
+        CubeFace.FRONT to floatArrayOf(
+            -0.5f, 0.5f, 0.5f,
+            -0.5f, -0.5f, 0.5f,
+            0.5f, -0.5f, 0.5f,
+            0.5f, -0.5f, 0.5f,
+            0.5f, 0.5f, 0.5f,
+            -0.5f, 0.5f, 0.5f,
+        ),
+        CubeFace.BACK to floatArrayOf(
+            -0.5f, 0.5f, -0.5f,
+            -0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f, -0.5f,
+            0.5f, 0.5f, -0.5f,
+            -0.5f, 0.5f, -0.5f
+        )
     )
 
-    val textures = floatArrayOf(
+
+    val textures = mapOf(
         // LEFT
-        0f, 1f, // top-left
-        0f, 0f, // bottom-left
-        1f, 0f, // bottom-right
-        1f, 0f, // bottom-right
-        1f, 1f, // top-right
-        0f, 1f, // top-left
+        CubeFace.LEFT to floatArrayOf(
+            0f, 1f, // top-left
+            0f, 0f, // bottom-left
+            1f, 0f, // bottom-right
+            1f, 0f, // bottom-right
+            1f, 1f, // top-right
+            0f, 1f, // top-left)
+        ),
 
-        // RIGHT
-        0f, 1f, // top-left
-        0f, 0f, // bottom-left
-        1f, 0f, // bottom-right
-        1f, 0f, // bottom-right
-        1f, 1f, // top-right
-        0f, 1f, // top-left
+        CubeFace.RIGHT to floatArrayOf(
+// RIGHT
+            0f, 1f, // top-left
+            0f, 0f, // bottom-left
+            1f, 0f, // bottom-right
+            1f, 0f, // bottom-right
+            1f, 1f, // top-right
+            0f, 1f, // top-left)
+        ),
 
-        // TOP
-        0f, 1f, // top-left
-        0f, 0f, // top-right
-        1f, 0f, // bottom-right
-        1f, 0f, // bottom-right
-        1f, 1f, // bottom-left
-        0f, 1f, // top-left
+        CubeFace.TOP to floatArrayOf(
+// TOP
+            0f, 1f, // top-left
+            0f, 0f, // top-right
+            1f, 0f, // bottom-right
+            1f, 0f, // bottom-right
+            1f, 1f, // bottom-left
+            0f, 1f, // top-left)
+        ),
 
         // BOTTOM
-        0f, 1f, // top-left
-        0f, 0f, // bottom-left
-        1f, 0f, // bottom-right
-        1f, 0f, // bottom-right
-        1f, 1f, // top-right
-        0f, 1f, // top-left
+        CubeFace.BOTTOM to floatArrayOf(
+            0f, 1f, // top-left
+            0f, 0f, // bottom-left
+            1f, 0f, // bottom-right
+            1f, 0f, // bottom-right
+            1f, 1f, // top-right
+            0f, 1f, // top-left)
+        ),
 
         // FRONT
-        0f, 1f, // top-left
-        0f, 0f, // bottom-left
-        1f, 0f, // bottom-right
-        1f, 0f, // bottom-right
-        1f, 1f, // top-right
-        0f, 1f, // top-left
+        CubeFace.FRONT to floatArrayOf(
+            0f, 1f, // top-left
+            0f, 0f, // bottom-left
+            1f, 0f, // bottom-right
+            1f, 0f, // bottom-right
+            1f, 1f, // top-right
+            0f, 1f, // top-left)
+        ),
 
         // BACK
-        0f, 1f, // top-left
-        0f, 0f, // bottom-left
-        1f, 0f, // bottom-right
-        1f, 0f, // bottom-right
-        1f, 1f, // top-right
-        0f, 1f  // top-left
+        CubeFace.BACK to floatArrayOf(
+            0f, 1f, // top-left
+            0f, 0f, // bottom-left
+            1f, 0f, // bottom-right
+            1f, 0f, // bottom-right
+            1f, 1f, // top-right
+            0f, 1f  // top-left)
+        )
     )
 
 

@@ -1,21 +1,13 @@
 package me.ponktacology.majnkraft
 
 import org.joml.Vector2i
-import org.joml.Vector3i
+
+const val CHUNK_SIZE = 16
+const val CHUNK_HEIGHT = 16
 
 data class Chunk(val position: Vector2i) {
 
-    val blocks = mutableSetOf<Vector3i>()
-
-    init {
-        for (i in 0..16) {
-            for (j in 0..16) {
-                blocks.add(Vector3i(i, 0, j))
-                blocks.add(Vector3i(i, 1, j))
-            }
-        }
-    }
-
+    val blocks = Array(CHUNK_SIZE) { Array(CHUNK_HEIGHT) { IntArray(CHUNK_SIZE) } }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -6,6 +6,7 @@ import org.lwjgl.glfw.GLFW.*
 import java.nio.file.Path
 import kotlin.system.measureNanoTime
 
+
 object Main {
 
     private const val FOV = Math.PI.toFloat() / 3f
@@ -33,7 +34,8 @@ object Main {
         val camera = Camera()
         val input = Input(window)
 
-        val world = World(camera)
+        val noiseGenerator = PerlinNoiseGenerator()
+        val world = World(camera, noiseGenerator)
 
         val entityRenderer = EntityRenderer()
 

@@ -8,6 +8,7 @@ class EntityRenderer {
 
     fun renderEntities(entities: Collection<Entity>, staticShader: Shader) {
         if (entities.isEmpty()) return
+
         val entity = entities.first()
 
         glBindVertexArray(entity.mesh.vaoId)
@@ -23,6 +24,7 @@ class EntityRenderer {
 
             glDrawArrays(GL_TRIANGLES, 0, entity.mesh.vertexCount)
         }
+
         glDisableVertexAttribArray(0)
         glDisableVertexAttribArray(1)
         glBindVertexArray(0)
